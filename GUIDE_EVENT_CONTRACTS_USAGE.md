@@ -7,16 +7,16 @@ For detailed specifications, see [CROSS_EVENT_CONTRACTS_AND_VERSIONING.md](docs/
 `<domain>.<context>.<entity>.<eventType>.v<majorVersion>`
 
 Examples:
-- `ecommerce.order.created.v1`
-- `chat.message.sent.v1`
-- `iot.telemetry.raw.v1`
+- `ecommerce.order.order.created.v1`
+- `chat.message.message.sent.v1`
+- `iot.telemetry.telemetry.raw.v1`
 
 ## Workflow
 1. **Draft Phase**: Add new event schema under appropriate domain path in `event-contracts/`
-2. **Validation**: Run validation pipeline:
-   - Schema compatibility check (CI)
+2. **Validation**: Run `./scripts/validate-events.sh` to check:
+   - Schema compatibility and naming conventions
    - Field naming rules: snake_case in payload; envelope camelCase
-   - Lint: required fields, no personally identifying raw values
+   - Required fields validation and eventType format compliance
 3. **Documentation**: Update `CHANGELOG.md` in event-contracts repo
 4. **Integration**: Reference event in service README with producer & consumers
 5. **Testing**: Add integration test publishing example event

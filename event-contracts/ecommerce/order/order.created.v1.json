@@ -11,7 +11,7 @@
     },
     "eventType": {
       "type": "string",
-      "const": "ecommerce.order.created.v1",
+      "const": "ecommerce.order.order.created.v1",
       "description": "Event type identifier with domain, context, entity, action, and version"
     },
     "occurredAt": {

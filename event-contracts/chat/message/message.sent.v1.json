@@ -11,7 +11,7 @@
     },
     "eventType": {
       "type": "string",
-      "const": "chat.message.sent.v1",
+      "const": "chat.message.message.sent.v1",
       "description": "Event type identifier"
     },
     "occurredAt": {
