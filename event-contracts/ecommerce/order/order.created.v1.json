@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Order Created Event",
+  "description": "Event published when a new order is created in the e-commerce system",
+  "type": "object",
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this event instance"
+    },
+    "eventType": {
+      "type": "string",
+      "const": "ecommerce.order.created.v1",
+      "description": "Event type identifier with domain, context, entity, action, and version"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "producer": {
+      "type": "string",
+      "description": "Service that produced this event"
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Distributed tracing correlation ID"
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Business transaction correlation ID"
+    },
+    "partitionKey": {
+      "type": "string",
+      "description": "Key used for message partitioning (typically customer_id)"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of the event envelope schema"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Multi-tenant identifier (optional for future use)"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the order"
+        },
+        "customer_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the customer"
+        },
+        "order_status": {
+          "type": "string",
+          "enum": ["created", "confirmed", "processing", "shipped", "delivered", "cancelled"],
+          "description": "Current status of the order"
+        },
+        "total_amount": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total order amount in cents"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "ISO 4217 currency code"
+        },
+        "order_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Product identifier"
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Number of items ordered"
+              },
+              "unit_price": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Price per unit in cents"
+              }
+            },
+            "required": ["product_id", "quantity", "unit_price"]
+          },
+          "minItems": 1,
+          "description": "List of items in the order"
+        },
+        "shipping_address": {
+          "type": "object",
+          "properties": {
+            "street": {"type": "string"},
+            "city": {"type": "string"},
+            "state": {"type": "string"},
+            "postal_code": {"type": "string"},
+            "country": {"type": "string"}
+          },
+          "required": ["street", "city", "postal_code", "country"],
+          "description": "Delivery address for the order"
+        }
+      },
+      "required": [
+        "order_id",
+        "customer_id", 
+        "order_status",
+        "total_amount",
+        "currency",
+        "order_items"
+      ],
+      "description": "Business data for the order creation event"
+    }
+  },
+  "required": [
+    "eventId",
+    "eventType", 
+    "occurredAt",
+    "producer",
+    "traceId",
+    "correlationId",
+    "partitionKey",
+    "schemaVersion",
+    "payload"
+  ]
+}

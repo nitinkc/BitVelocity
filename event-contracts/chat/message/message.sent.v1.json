@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Message Sent Event",
+  "description": "Event published when a chat message is sent",
+  "type": "object", 
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this event instance"
+    },
+    "eventType": {
+      "type": "string",
+      "const": "chat.message.sent.v1",
+      "description": "Event type identifier"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "producer": {
+      "type": "string",
+      "description": "Service that produced this event"
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Distributed tracing correlation ID"
+    },
+    "correlationId": {
+      "type": "string", 
+      "description": "Business transaction correlation ID"
+    },
+    "partitionKey": {
+      "type": "string",
+      "description": "Key used for message partitioning (typically room_id)"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of the event envelope schema"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Multi-tenant identifier (optional)"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the message"
+        },
+        "room_id": {
+          "type": "string",
+          "format": "uuid", 
+          "description": "Chat room identifier"
+        },
+        "sender_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "User ID of the message sender"
+        },
+        "message_content": {
+          "type": "string",
+          "maxLength": 4000,
+          "description": "Content of the chat message"
+        },
+        "message_type": {
+          "type": "string",
+          "enum": ["text", "image", "file", "emoji"],
+          "description": "Type of message content"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the message was sent"
+        },
+        "reply_to_message_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "ID of message being replied to (optional)"
+        }
+      },
+      "required": [
+        "message_id",
+        "room_id", 
+        "sender_id",
+        "message_content",
+        "message_type",
+        "timestamp"
+      ],
+      "description": "Business data for the message sent event"
+    }
+  },
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt", 
+    "producer",
+    "traceId",
+    "correlationId",
+    "partitionKey",
+    "schemaVersion",
+    "payload"
+  ]
+}
