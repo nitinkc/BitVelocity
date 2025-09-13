@@ -10,3 +10,6 @@
 [submodule "bv-iot-control-hub"]
 	path = bv-iot-control-hub
 	url = https://github.com/nitinkc/bv-iot-control-hub.git
+[submodule "BitVelocity.wiki"]
+	path = BitVelocity.wiki
+	url = https://github.com/nitinkc/BitVelocity.wiki.git
