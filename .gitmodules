@@ -16,3 +16,6 @@
 [submodule "bv-infra-service"]
 	path = bv-infra-service
 	url = https://github.com/nitinkc/bv-infra-service.git
+[submodule "bv-security-core"]
+	path = bv-security-core
+	url = https://github.com/nitinkc/bv-security-core.git
