@@ -13,3 +13,6 @@
 [submodule "BitVelocity.wiki"]
 	path = BitVelocity.wiki
 	url = https://github.com/nitinkc/BitVelocity.wiki.git
+[submodule "bv-infra-service"]
+	path = bv-infra-service
+	url = https://github.com/nitinkc/bv-infra-service.git
