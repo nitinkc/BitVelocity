@@ -3,21 +3,20 @@
 This index points to modular design documents so you can focus on one domain at a time while ensuring seamless interoperability later.
 
 ## Domain Architecture Files
-1. `DOMAIN_ECOMMERCE_ARCHITECTURE.md`
-2. `DOMAIN_CHAT_ARCHITECTURE.md`
-3. `DOMAIN_IOT_ARCHITECTURE.md`
-4. `DOMAIN_SOCIAL_ARCHITECTURE.md`
-5. `DOMAIN_ML_AI_ARCHITECTURE.md` (enabler, optional early)
-6. `DOMAIN_SECURITY_PLATFORM.md` (Auth / Policy / Keys)
+1. [E-Commerce Domain](01-ARCHITECTURE/domains/ecommerce/DOMAIN_ECOMMERCE_ARCHITECTURE.md)
+2. [Chat Domain](01-ARCHITECTURE/domains/chat/DOMAIN_CHAT_ARCHITECTURE.md)
+3. [IoT Domain](01-ARCHITECTURE/domains/iot/DOMAIN_IOT_ARCHITECTURE.md)
+4. [Social Domain](01-ARCHITECTURE/domains/social/DOMAIN_SOCIAL_ARCHITECTURE.md)
+5. [ML/AI Domain](01-ARCHITECTURE/domains/ml-ai/DOMAIN_ML_AI_ARCHITECTURE.md) (enabler, optional early)
 
 ## Cross-Cutting & Shared
 1. `CROSS_DATA_PLATFORM_AND_ANALYTICS.md`
 2. `CROSS_EVENT_CONTRACTS_AND_VERSIONING.md`
 3. `CROSS_OBSERVABILITY_AND_TESTING.md`
-4. `CROSS_INFRA_PORTABILITY_AND_DEPLOYMENT.md`
-5. `CROSS_EXECUTION_BACKLOG_AND_SPRINT_PLAN.md`
-6. `CROSS_REPLAY_DR_DRILLS.md`
-7. `CROSS_COST_OPTIMIZATION.md`
+4. `CROSS_EXECUTION_BACKLOG_AND_SPRINT_PLAN.md`
+5. `CROSS_REPLAY_DR_DRILLS.md`
+6. `CROSS_COST_OPTIMIZATION.md`
+7. [Security Strategy](adr/ADR-005-security-layering.md) (Architecture Decision Record)
 
 ## Usage Guidance
 - Each domain repo includes only its domain file + referenced slices from cross-cutting.
