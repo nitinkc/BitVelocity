@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Order Scored Event",
+  "description": "Event published when an order receives a fraud risk score from ML models",
+  "type": "object",
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this event instance"
+    },
+    "eventType": {
+      "type": "string",
+      "const": "ml.fraud.order.scored.v1",
+      "description": "Event type identifier"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "producer": {
+      "type": "string",
+      "description": "Service that produced this event"
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Distributed tracing correlation ID"
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Business transaction correlation ID"
+    },
+    "partitionKey": {
+      "type": "string",
+      "description": "Key used for message partitioning (typically order_id)"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of the event envelope schema"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Multi-tenant identifier (optional)"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Order identifier that was scored"
+        },
+        "customer_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Customer identifier"
+        },
+        "fraud_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Fraud probability score (0 = no risk, 1 = high risk)"
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Categorical risk assessment"
+        },
+        "model_version": {
+          "type": "string",
+          "description": "Version of the ML model used for scoring"
+        },
+        "features_used": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feature_name": {
+                "type": "string",
+                "description": "Name of the feature"
+              },
+              "feature_value": {
+                "type": "number",
+                "description": "Normalized feature value"
+              },
+              "importance": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Feature importance in the scoring"
+              }
+            },
+            "required": ["feature_name", "feature_value", "importance"]
+          },
+          "description": "Features and their values used in scoring"
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": ["approve", "review", "decline", "request_verification"],
+          "description": "Recommended action based on the score"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Model confidence in the prediction"
+        },
+        "scoring_duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time taken to compute the score in milliseconds"
+        }
+      },
+      "required": [
+        "order_id",
+        "customer_id",
+        "fraud_score",
+        "risk_level",
+        "model_version",
+        "recommendation",
+        "confidence"
+      ],
+      "description": "Business data for the fraud scoring event"
+    }
+  },
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "producer",
+    "traceId",
+    "correlationId", 
+    "partitionKey",
+    "schemaVersion",
+    "payload"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Stock Adjusted Event",
+  "description": "Event published when inventory stock levels are adjusted",
+  "type": "object",
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this event instance"
+    },
+    "eventType": {
+      "type": "string", 
+      "const": "ecommerce.inventory.stock.adjusted.v1",
+      "description": "Event type identifier"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "producer": {
+      "type": "string",
+      "description": "Service that produced this event"
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Distributed tracing correlation ID"
+    },
+    "correlationId": {
+      "type": "string",
+      "description": "Business transaction correlation ID"
+    },
+    "partitionKey": {
+      "type": "string",
+      "description": "Key used for message partitioning (typically product_id)"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Version of the event envelope schema"
+    },
+    "tenantId": {
+      "type": "string",
+      "description": "Multi-tenant identifier (optional)"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Product identifier"
+        },
+        "adjustment_id": {
+          "type": "string",
+          "format": "uuid", 
+          "description": "Unique identifier for this stock adjustment"
+        },
+        "previous_quantity": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Stock quantity before adjustment"
+        },
+        "new_quantity": {
+          "type": "integer", 
+          "minimum": 0,
+          "description": "Stock quantity after adjustment"
+        },
+        "adjustment_quantity": {
+          "type": "integer",
+          "description": "Amount of adjustment (positive or negative)"
+        },
+        "adjustment_reason": {
+          "type": "string",
+          "enum": ["sale", "restock", "damage", "theft", "correction", "return"],
+          "description": "Reason for the stock adjustment"
+        },
+        "warehouse_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Warehouse where adjustment occurred"
+        },
+        "adjusted_by": {
+          "type": "string", 
+          "format": "uuid",
+          "description": "User ID who made the adjustment"
+        },
+        "reference_id": {
+          "type": "string",
+          "description": "Reference to related transaction (order_id, shipment_id, etc.)"
+        }
+      },
+      "required": [
+        "product_id",
+        "adjustment_id",
+        "previous_quantity",
+        "new_quantity",
+        "adjustment_quantity", 
+        "adjustment_reason",
+        "warehouse_id",
+        "adjusted_by"
+      ],
+      "description": "Business data for the stock adjustment event"
+    }
+  },
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "producer", 
+    "traceId",
+    "correlationId",
+    "partitionKey",
+    "schemaVersion",
+    "payload"
+  ]
+}
