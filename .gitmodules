@@ -1,0 +1,12 @@
+[submodule "bv-eCommerce-core"]
+	path = bv-eCommerce-core
+	url = https://github.com/nitinkc/bv-eCommerce-core.git
+[submodule "bv-chat-stream"]
+	path = bv-chat-stream
+	url = https://github.com/nitinkc/bv-chat-stream.git
+[submodule "bv-social-pulse"]
+	path = bv-social-pulse
+	url = https://github.com/nitinkc/bv-social-pulse.git
+[submodule "bv-iot-control-hub"]
+	path = bv-iot-control-hub
+	url = https://github.com/nitinkc/bv-iot-control-hub.git
