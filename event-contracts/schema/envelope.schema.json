@@ -1,0 +1,219 @@
+{
+  "$id": "https://bitvelocity.dev/schema/envelope.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DomainEventEnvelope",
+  "type": "object",
+  "required": ["eventId", "eventType", "occurredAt", "producer", "partitionKey", "payload", "schemaVersion"],
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "eventType": { "type": "string", "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*\\.v[0-9]+$" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "producer": { "type": "string" },
+    "traceId": { "type": "string" },
+    "correlationId": { "type": "string" },
+    "schemaVersion": { "type": "string", "pattern": "^1\\.0$" },
+    "tenantId": { "type": "string", "default": "default" },
+    "partitionKey": { "type": "string" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}
+```
+
+````json name=event-contracts/ecommerce/order/order.created.v1.json
+{
+  "$id": "https://bitvelocity.dev/schema/ecommerce/order/order.created.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ECommerceOrderCreatedV1",
+  "type": "object",
+  "required": ["orderId","userId","currency","items","totalAmount","status","createdAt"],
+  "properties": {
+    "orderId": { "type": "string" },
+    "userId": { "type": "string" },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type":"object",
+        "required":["productId","quantity","unitPrice"],
+        "properties":{
+          "productId":{"type":"string"},
+            "quantity":{"type":"integer","minimum":1},
+            "unitPrice":{"type":"number","minimum":0}
+        },
+        "additionalProperties":false
+      },
+      "minItems":1
+    },
+    "totalAmount": { "type":"number","minimum":0 },
+    "status": { "type":"string","enum":["PENDING"] },
+    "createdAt": { "type":"string","format":"date-time" }
+  },
+  "additionalProperties": false
+}
+```
+
+````json name=event-contracts/ecommerce/order/order.paid.v1.json
+{
+  "$id": "https://bitvelocity.dev/schema/ecommerce/order/order.paid.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ECommerceOrderPaidV1",
+  "type": "object",
+  "required": ["orderId","paidAt","amount","currency","paymentRef","status"],
+  "properties": {
+    "orderId": { "type":"string" },
+    "paidAt": { "type":"string","format":"date-time" },
+    "amount": { "type":"number","minimum":0 },
+    "currency": { "type":"string","pattern":"^[A-Z]{3}$" },
+    "paymentRef": { "type":"string" },
+    "status": { "type":"string","enum":["PAID"] }
+  },
+  "additionalProperties": false
+}
+```
+
+````json name=event-contracts/ecommerce/inventory/stock.adjusted.v1.json
+{
+  "$id": "https://bitvelocity.dev/schema/ecommerce/inventory/stock.adjusted.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InventoryStockAdjustedV1",
+  "type":"object",
+  "required":["productId","delta","reason","updatedAt","available","reserved"],
+  "properties":{
+    "productId":{"type":"string"},
+    "delta":{"type":"integer"},
+    "reason":{"type":"string","enum":["RESERVATION","RELEASE","MANUAL","SENSOR"]},
+    "updatedAt":{"type":"string","format":"date-time"},
+    "available":{"type":"integer","minimum":0},
+    "reserved":{"type":"integer","minimum":0}
+  },
+  "additionalProperties":false
+}
+```
+
+````json name=event-contracts/ecommerce/product/product.updated.v1.json
+{
+  "$id": "https://bitvelocity.dev/schema/ecommerce/product/product.updated.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductUpdatedV1",
+  "type":"object",
+  "required":["productId","sku","name","updatedAt"],
+  "properties":{
+    "productId":{"type":"string"},
+    "sku":{"type":"string"},
+    "name":{"type":"string"},
+    "description":{"type":"string"},
+    "basePrice":{"type":"number","minimum":0},
+    "status":{"type":"string","enum":["ACTIVE","INACTIVE"]},
+    "updatedAt":{"type":"string","format":"date-time"}
+  },
+  "additionalProperties":false
+}
+```
+
+````json name=event-contracts/chat/message/message.sent.v1.json
+{
+  "$id":"https://bitvelocity.dev/schema/chat/message/message.sent.v1.json",
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "title":"ChatMessageSentV1",
+  "type":"object",
+  "required":["messageId","roomId","senderId","content","sentAt"],
+  "properties":{
+    "messageId":{"type":"string"},
+    "roomId":{"type":"string"},
+    "senderId":{"type":"string"},
+    "content":{"type":"string","maxLength":4000},
+    "sentAt":{"type":"string","format":"date-time"},
+    "attachments":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":false
+}
+```
+
+````json name=event-contracts/social/post/post.created.v1.json
+{
+  "$id":"https://bitvelocity.dev/schema/social/post/post.created.v1.json",
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "title":"SocialPostCreatedV1",
+  "type":"object",
+  "required":["postId","authorId","createdAt"],
+  "properties":{
+    "postId":{"type":"string"},
+    "authorId":{"type":"string"},
+    "tags":{"type":"array","items":{"type":"string"}},
+    "title":{"type":"string"},
+    "createdAt":{"type":"string","format":"date-time"}
+  },
+  "additionalProperties":false
+}
+```
+
+````json name=event-contracts/iot/telemetry/telemetry.raw.v1.json
+{
+  "$id":"https://bitvelocity.dev/schema/iot/telemetry/telemetry.raw.v1.json",
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "title":"TelemetryRawV1",
+  "type":"object",
+  "required":["deviceId","ts"],
+  "properties":{
+    "deviceId":{"type":"string"},
+    "ts":{"type":"string","format":"date-time"},
+    "temperature":{"type":"number"},
+    "voltage":{"type":"number"},
+    "status":{"type":"string"}
+  },
+  "additionalProperties":false
+}
+```
+
+````json name=event-contracts/security/policy/policy.updated.v1.json
+{
+  "$id":"https://bitvelocity.dev/schema/security/policy/policy.updated.v1.json",
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "title":"SecurityPolicyUpdatedV1",
+  "type":"object",
+  "required":["policyId","updatedAt","scope"],
+  "properties":{
+    "policyId":{"type":"string"},
+    "updatedAt":{"type":"string","format":"date-time"},
+    "scope":{"type":"string"},
+    "checksum":{"type":"string"}
+  },
+  "additionalProperties":false
+}
+```
+
+````markdown name=SPRINT1_ISSUES_BACKLOG.md
+# Sprint 1 Backlog (Foundational Bootstrap)
+
+Capacity: ~60–65 hrs (2–3 devs × 10–15h each week × 2 weeks)
+
+| # | Title | Est (h) | Owner (TBD) | Dependencies | Acceptance Criteria |
+|---|-------|---------|-------------|--------------|---------------------|
+| 1 | Create shared BOM (bv-platform-bom) | 6 | | None | `mvn -q dependency:tree` aligned; version catalog documented |
+| 2 | Scaffold bv-core-common & logging/tracing filter | 4 | | #1 | CorrelationId & traceId injected into logs |
+| 3 | Pulumi local-kind stack (Postgres + Kafka + Redis) | 8 | | None | `pulumi up` provisions & `kubectl get pods` healthy |
+| 4 | Auth service: JWT issue & verify (HS256) | 8 | | #1 | POST /auth/token returns JWT; protected test endpoint verified |
+| 5 | Product service CRUD + Flyway migrations | 10 | | #3 | CRUD endpoints, integration tests green |
+| 6 | Order service skeleton (domain model + repo + controller stub) | 6 | | #3,#5 | POST /orders returns 201 with orderId (in-memory validation) |
+| 7 | Event envelope library (bv-event-core) | 4 | | #1 | Unit test constructing envelope passes; version 1.0 published |
+| 8 | Introduce Kafka producer/testcontainers integration | 6 | | #3,#7 | Publishing mock event in integration test; topic visible |
+| 9 | Redis integration & product read-through cache | 4 | | #3,#5 | Cache hit ratio metric increments; invalidation test passes |
+| 10 | OpenTelemetry baseline & Prometheus endpoint in services | 4 | | #1 | /actuator/prometheus exposes JVM + custom metric |
+| 11 | BDD baseline (Cucumber) for Product CRUD | 4 | | #5 | Scenario green in CI |
+| 12 | CI pipeline (build, unit, integration) | 4 | | #1-#5 | GitHub Actions run passes all stages |
+| 13 | ADRs 001–004 committed | 2 | | None | ADR markdown merged; referenced in README |
+| 14 | Developer scripts (start-core.sh, stop-core.sh) | 2 | | #3 | Scripts bring up & tear down dependencies locally |
+| 15 | Architecture README initial draft (E-Com + infra) | 2 | | #1-#6 | README includes sequence diagram text |
+
+## Sequencing / PERT Notes
+- Parallelizable: #1, #3, #13
+- Critical Path: #3 → (#5 & #6) → #8 → readiness for Sprint 2 events
+- Early Feedback: Deploy after #3 + #4 + #5 to validate stack & auth.
+
+## Definition of Done Checklist (Applied to Each Issue)
+- Code merged with tests (unit/integration where applicable)
+- ADR updated if architectural decision (or note N/A)
+- Metrics & tracing for new endpoints
+- README or service-specific docs updated
+- No critical dependency vulnerabilities (Dependency-Check)
