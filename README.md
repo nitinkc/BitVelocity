@@ -1,5 +1,7 @@
 # BitVelocity – Multi-Domain Distributed Learning Platform
 
+https://nitinkc.github.io/BitVelocity-Docs/#quick-start
+
 You are building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
 - Domains: e-commerce, chat, IoT, social, security, infra
 - Protocols: REST, GraphQL, gRPC, WebSocket, SSE, Kafka, AMQP, MQTT, Webhooks, SOAP, batch, stream processing
