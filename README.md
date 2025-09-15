@@ -19,6 +19,9 @@ Clone all projects in submodule. Fetch up to 6 submodules at a time (in parallel
  git clone --recurse-submodules -j6 https://github.com/nitinkc/BitVelocity.git
 ```
 
+# Docs 
+[https://nitinkc.github.io/BitVelocity-Docs/](https://nitinkc.github.io/BitVelocity-Docs/)
+
 # BitVelocity – Multi-Domain Distributed Learning Platform
 
 Building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
