@@ -24,7 +24,7 @@ Clone all projects in submodule. Fetch up to 6 submodules at a time (in parallel
 
 # BitVelocity – Multi-Domain Distributed Learning Platform
 
-Building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
+You are building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
 - Domains: e-commerce, chat, IoT, social, security, infra
 - Protocols: REST, GraphQL, gRPC, WebSocket, SSE, Kafka, AMQP, MQTT, Webhooks, SOAP, batch, stream processing
 - Data: OLTP (Postgres) → Events + CDC → Derived (Redis/Cassandra/OpenSearch) → OLAP (Parquet/ClickHouse/BigQuery)
