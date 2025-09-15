@@ -1,0 +1,31 @@
+resilience4j:
+  retry:
+    instances:
+      paymentSoap:
+        maxAttempts: 5
+        waitDuration: 500ms
+        exponentialBackoffMultiplier: 2
+        retryExceptions:
+          - java.io.IOException
+      inventoryGrpc:
+        maxAttempts: 3
+        waitDuration: 200ms
+        enableExponentialBackoff: true
+      webhookDispatch:
+        maxAttempts: 5
+        waitDuration: 30s
+        retryExceptions:
+          - java.net.ConnectException
+  circuitbreaker:
+    instances:
+      paymentSoap:
+        slidingWindowSize: 20
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30s
+      inventoryGrpc:
+        slidingWindowSize: 10
+        failureRateThreshold: 40
+  timelimiter:
+    instances:
+      inventoryGrpc:
+        timeoutDuration: 1s

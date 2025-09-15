@@ -19,3 +19,15 @@
 [submodule "bv-security-core"]
 	path = bv-security-core
 	url = https://github.com/nitinkc/bv-security-core.git
+[submodule "bv-core-common"]
+	path = bv-core-common
+	url = https://github.com/nitinkc/bv-core-common.git
+[submodule "bv-event-core"]
+	path = bv-event-core
+	url = https://github.com/nitinkc/bv-core-event.git
+[submodule "bv-core-parent"]
+	path = bv-core-parent
+	url = https://github.com/nitinkc/bv-core-parent.git
+[submodule "bv-core-platform-bom"]
+	path = bv-core-platform-bom
+	url = https://github.com/nitinkc/bv-core-platform-bom.git
