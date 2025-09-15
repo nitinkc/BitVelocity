@@ -1,6 +1,27 @@
+# Repositories
+Repo of repos : https://github.com/nitinkc/BitVelocity.git
+
+Submodules :
+- https://github.com/nitinkc/bv-core-common.git
+- https://github.com/nitinkc/bv-core-event.git
+- https://github.com/nitinkc/bv-core-platform-bom.git
+- https://github.com/nitinkc/bv-eCommerce-core.git
+- https://github.com/nitinkc/bv-chat-stream.git
+- https://github.com/nitinkc/bv-iot-control-hub.git
+- https://github.com/nitinkc/bv-social-pulse.git
+- https://github.com/nitinkc/BitVelocity.wiki.git
+- https://github.com/nitinkc/bv-infra-service.git
+- https://github.com/nitinkc/bv-security-core.git
+
+Clone all projects in submodule. Fetch up to 6 submodules at a time (in parallel) with 
+
+```shell
+ git clone --recurse-submodules -j6 https://github.com/nitinkc/BitVelocity.git
+```
+
 # BitVelocity – Multi-Domain Distributed Learning Platform
 
-You are building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
+Building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
 - Domains: e-commerce, chat, IoT, social, security, infra
 - Protocols: REST, GraphQL, gRPC, WebSocket, SSE, Kafka, AMQP, MQTT, Webhooks, SOAP, batch, stream processing
 - Data: OLTP (Postgres) → Events + CDC → Derived (Redis/Cassandra/OpenSearch) → OLAP (Parquet/ClickHouse/BigQuery)
@@ -45,16 +66,3 @@ curl http://localhost:8081/api/v1/products
 See docs/architecture/ for deep design and docs/adr for decisions.
 
 
-## Repository
-
-- git submodule add https://github.com/nitinkc/bv-core-common.git
-- git submodule add https://github.com/nitinkc/bv-core-event.git
-- git submodule add https://github.com/nitinkc/bv-core-platform-bom.git
-
-- https://github.com/nitinkc/bv-eCommerce-core.git
-- https://github.com/nitinkc/bv-chat-stream.git
-- https://github.com/nitinkc/bv-iot-control-hub.git
-- https://github.com/nitinkc/bv-social-pulse.git
-- https://github.com/nitinkc/BitVelocity.wiki.git
-- https://github.com/nitinkc/bv-infra-service.git
-- https://github.com/nitinkc/bv-security-core.git
