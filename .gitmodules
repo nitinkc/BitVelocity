@@ -31,3 +31,6 @@
 [submodule "bv-core-platform-bom"]
 	path = bv-core-platform-bom
 	url = https://github.com/nitinkc/bv-core-platform-bom.git
+[submodule "BitVelocity-Docs"]
+	path = BitVelocity-Docs
+	url = https://github.com/nitinkc/BitVelocity-Docs.git
