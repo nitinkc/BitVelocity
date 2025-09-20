@@ -1,36 +1,48 @@
 [submodule "bv-eCommerce-core"]
 	path = bv-eCommerce-core
 	url = https://github.com/nitinkc/bv-eCommerce-core.git
+   	branch = main
 [submodule "bv-chat-stream"]
 	path = bv-chat-stream
 	url = https://github.com/nitinkc/bv-chat-stream.git
+   	branch = main
 [submodule "bv-social-pulse"]
 	path = bv-social-pulse
 	url = https://github.com/nitinkc/bv-social-pulse.git
+   	branch = main
 [submodule "bv-iot-control-hub"]
 	path = bv-iot-control-hub
 	url = https://github.com/nitinkc/bv-iot-control-hub.git
+   	branch = main
 [submodule "BitVelocity.wiki"]
 	path = BitVelocity.wiki
 	url = https://github.com/nitinkc/BitVelocity.wiki.git
+   	branch = main
 [submodule "bv-infra-service"]
 	path = bv-infra-service
 	url = https://github.com/nitinkc/bv-infra-service.git
+   	branch = main
 [submodule "bv-security-core"]
 	path = bv-security-core
 	url = https://github.com/nitinkc/bv-security-core.git
+   	branch = main
 [submodule "bv-core-common"]
 	path = bv-core-common
 	url = https://github.com/nitinkc/bv-core-common.git
+   	branch = main
 [submodule "bv-event-core"]
 	path = bv-event-core
 	url = https://github.com/nitinkc/bv-core-event.git
+   	branch = main
 [submodule "bv-core-parent"]
 	path = bv-core-parent
 	url = https://github.com/nitinkc/bv-core-parent.git
+   	branch = main
 [submodule "bv-core-platform-bom"]
 	path = bv-core-platform-bom
 	url = https://github.com/nitinkc/bv-core-platform-bom.git
+   	branch = main
 [submodule "BitVelocity-Docs"]
 	path = BitVelocity-Docs
 	url = https://github.com/nitinkc/BitVelocity-Docs.git
+   	branch = main

@@ -19,6 +19,21 @@ Clone all projects in submodule. Fetch up to 6 submodules at a time (in parallel
  git clone --recurse-submodules -j6 https://github.com/nitinkc/BitVelocity.git
 ```
 
+** Submodules are tracked using a branch instead of a commit **. 
+
+```shell
+[submodule "foo"]
+    path = foo
+    url = ...
+    branch = main
+```
+
+This will check out the tip of the branch (e.g., main) in the submodule, instead of a fixed commit.
+
+```sh
+git submodule update --remote
+```
+
 # Docs 
 [https://nitinkc.github.io/BitVelocity-Docs/](https://nitinkc.github.io/BitVelocity-Docs/)
 
