@@ -14,10 +14,6 @@
 	path = bv-iot-control-hub
 	url = https://github.com/nitinkc/bv-iot-control-hub.git
    	branch = main
-[submodule "BitVelocity.wiki"]
-	path = BitVelocity.wiki
-	url = https://github.com/nitinkc/BitVelocity.wiki.git
-   	branch = main
 [submodule "bv-infra-service"]
 	path = bv-infra-service
 	url = https://github.com/nitinkc/bv-infra-service.git
