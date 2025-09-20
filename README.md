@@ -68,6 +68,17 @@ Current approach: Start WITHIN this repo using a multi-module structure for velo
 3. Sprint 3: Inventory gRPC impl + WebSocket notifications
 4. Sprint 4+: GraphQL, Chat, etc. (see architecture docs)
 
+## Sprint 1 Planning
+Detailed epics and issues for Sprint 1 are available in the [Sprint 1 Overview](docs/sprint-1-overview.md).
+
+### Current Sprint Epics
+- **Epic 1:** [Infrastructure Foundation](docs/epics/01-infrastructure-foundation.md) - Monorepo setup and local development environment
+- **Epic 2:** [Authentication Service](docs/epics/02-authentication-service.md) - JWT-based authentication with RBAC
+- **Epic 3:** [Product Service](docs/epics/03-product-service.md) - Product catalog with full CRUD operations
+- **Epic 4:** [Observability Foundation](docs/epics/04-observability-foundation.md) - Metrics, logging, and health monitoring
+
+For project setup and issue tracking, see [Project Configuration](docs/project-configuration.md).
+
 ## Run Local (after first commit)
 ```
 ./mvnw clean verify
