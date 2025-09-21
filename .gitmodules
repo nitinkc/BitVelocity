@@ -42,3 +42,6 @@
 	path = BitVelocity-Docs
 	url = https://github.com/nitinkc/BitVelocity-Docs.git
    	branch = main
+[submodule "bv-auth-service"]
+	path = bv-auth-service
+	url = https://github.com/nitinkc/bv-auth-service.git
