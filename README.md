@@ -1,97 +1,42 @@
-# Repositories
-Repo of repos : https://github.com/nitinkc/BitVelocity.git
+# BitVelocity Monorepo
 
-Submodules :
-- https://github.com/nitinkc/bv-core-common.git
-- https://github.com/nitinkc/bv-core-event.git
-- https://github.com/nitinkc/bv-core-platform-bom.git
-- https://github.com/nitinkc/bv-eCommerce-core.git
-- https://github.com/nitinkc/bv-chat-stream.git
-- https://github.com/nitinkc/bv-iot-control-hub.git
-- https://github.com/nitinkc/bv-social-pulse.git
-- https://github.com/nitinkc/BitVelocity.wiki.git
-- https://github.com/nitinkc/bv-infra-service.git
-- https://github.com/nitinkc/bv-security-core.git
 
-Clone all projects in submodule. Fetch up to 6 submodules at a time (in parallel) with 
+https://github.com/nitinkc/BitVelocity
 
-```shell
- git clone --recurse-submodules -j6 https://github.com/nitinkc/BitVelocity.git
+## Build All Modules
+
+```
+cd bv-core-parent
+mvn clean install
 ```
 
-** Submodules are tracked using a branch instead of a commit **. 
+## Start Infrastructure (Local)
 
-```shell
-[submodule "foo"]
-    path = foo
-    url = ...
-    branch = main
+```
+cd scripts/dev
+# On Windows:
+docker-compose -f docker-compose.infra.yml up -d
 ```
 
-This will check out the tip of the branch (e.g., main) in the submodule, instead of a fixed commit.
+## Run Authentication Service (Local)
 
-```sh
-git submodule update --remote
+```
+cd auth-service
+mvn spring-boot:run
 ```
 
-# Docs 
-[https://nitinkc.github.io/BitVelocity-Docs/](https://nitinkc.github.io/BitVelocity-Docs/)
+## Kubernetes (Kind/Minikube)
 
-# BitVelocity – Multi-Domain Distributed Learning Platform
-
-You are building a protocol-rich, security-first, cloud-portable platform for hands-on mastery:
-- Domains: e-commerce, chat, IoT, social, security, infra
-- Protocols: REST, GraphQL, gRPC, WebSocket, SSE, Kafka, AMQP, MQTT, Webhooks, SOAP, batch, stream processing
-- Data: OLTP (Postgres) → Events + CDC → Derived (Redis/Cassandra/OpenSearch) → OLAP (Parquet/ClickHouse/BigQuery)
-- Security: JWT → OAuth2/OIDC → OPA policies → Vault → mTLS
-- Infra: Pulumi (Java) for portable definition (local → GCP → AWS/Azure)
-- Multi-Region (east/west) & DR later in roadmap
-- Cost discipline: local-first, ephemeral cloud windows
-
-## Repository Role
-This repo is the “meta” or root aggregator. Each domain may live here as submodules (or you can spin separate repos named:
-- bv-ecommerce-core
-- bv-chat-stream
-- bv-iot-control-hub
-- bv-social-pulse
-- bv-security-core
-- bv-infra-service
-… plus shared libs if separated.
-
-Current approach: Start WITHIN this repo using a multi-module structure for velocity; later you can eject modules to their own repo with minimal refactoring because:
-- Each module uses only published shared libs (bv-core-common, bv-event-core, bv-security-lib, bv-test-core).
-- No cross-module internal compile-time dependencies across domains (only libs).
-
-## High-Level Early Milestones
-1. Sprint 1: Auth + Product (+ shared libs, event envelope, local infra)
-2. Sprint 2: Orders + Inventory proto + Kafka + Redis cache
-3. Sprint 3: Inventory gRPC impl + WebSocket notifications
-4. Sprint 4+: GraphQL, Chat, etc. (see architecture docs)
-
-## Sprint 1 Planning
-Detailed epics and issues for Sprint 1 are available in the [Sprint 1 Overview](docs/sprint-1-overview.md).
-
-### Current Sprint Epics
-- **Epic 1:** [Infrastructure Foundation](docs/epics/01-infrastructure-foundation.md) - Monorepo setup and local development environment
-- **Epic 2:** [Authentication Service](docs/epics/02-authentication-service.md) - JWT-based authentication with RBAC
-- **Epic 3:** [Product Service](docs/epics/03-product-service.md) - Product catalog with full CRUD operations
-- **Epic 4:** [Observability Foundation](docs/epics/04-observability-foundation.md) - Metrics, logging, and health monitoring
-
-For project setup and issue tracking, see [Project Configuration](docs/project-configuration.md).
-
-## Run Local (after first commit)
 ```
-./mvnw clean verify
-./scripts/dev/start-infra.sh
-(cd services/product-service && ./mvnw spring-boot:run)
-curl http://localhost:8081/api/v1/products
+kubectl apply -f k8s/postgres.yaml
+kubectl apply -f k8s/auth-service.yaml
 ```
 
-## Cost Strategy
-- Do not provision cloud until Sprint 2/3 smoke is stable.
-- Use the Pulumi local “kind” stack for Postgres + Kafka + Redis.
-- Destroy ephemeral cloud stacks after tests (pulumi destroy + TTL tags).
+## Documentation
+- Architecture: `BitVelocity-Docs/docs/00-OVERVIEW/README.md`
+- Security: `BitVelocity-Docs/adr/ADR-005-security-layering.md`
 
-See docs/architecture/ for deep design and docs/adr for decisions.
+---
 
+For more details, see `QUICK-START.md`.
 
