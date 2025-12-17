@@ -1,7 +1,8 @@
 # BitVelocity Monorepo
 
+Source code : https://github.com/nitinkc/BitVelocity
 
-https://github.com/nitinkc/BitVelocity
+Site: https://nitinkc.github.io/BitVelocity-Docs/
 
 ## Build All Modules
 
