@@ -33,5 +33,13 @@
 - `scripts/README.md` — scripting conventions
 - `BitVelocity-Docs/docs/event-contracts/README.md` — event contract conventions
 
----
-*Update this file as new conventions and workflows are adopted. For unclear or missing sections, ask maintainers for clarification.*
+
+bv-core-platform-bom (controls all versions) -> bv-core-parent (controls plugins etc.) -> bv-core-parent (this goes into every domain)
+
+
+Try to keep code in `bv-core-common` reusable across domains. When adding features, consider if they belong in core or a specific domain module. it has modules like common auth, logging, security, etc.
+
+When working on domain-specific features, focus on the respective domain folder (e.g., `bv-eCommerce-core` for eCommerce features).
+
+Always focus on the requirements of the specific domain or module you are working on, while adhering to the shared conventions and patterns outlined above.
+

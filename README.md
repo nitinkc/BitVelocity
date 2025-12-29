@@ -1,8 +1,8 @@
 # BitVelocity Monorepo
 
-Source code : https://github.com/nitinkc/BitVelocity
+Source code : [https://github.com/nitinkc/BitVelocity](https://github.com/nitinkc/BitVelocity)
 
-Site: https://nitinkc.github.io/BitVelocity-Docs/
+Site: [https://nitinkc.github.io/BitVelocity-Docs/](https://nitinkc.github.io/BitVelocity-Docs/)
 
 ## Build All Modules
 
@@ -10,6 +10,9 @@ Site: https://nitinkc.github.io/BitVelocity-Docs/
 cd bv-core-parent
 mvn clean install
 ```
+
+bv-core-platform-bom (controls all versions) -> bv-core-parent (controls plugins etc.) -> bv-core-parent (this goes into every domain)
+
 
 ## Start Infrastructure (Local)
 
