@@ -45,6 +45,6 @@
 [submodule "bv-auth-service"]
 	path = bv-auth-service
 	url = https://github.com/nitinkc/bv-auth-service.git
-[submodule "bv-chaos-experiments"]
-	path = bv-chaos-experiments
-	url = https://github.com/nitinkc/bv-chaos-experiments.git
+[submodule "bv-observability"]
+	path = bv-observability
+	url = https://github.com/nitinkc/bv-observability.git
