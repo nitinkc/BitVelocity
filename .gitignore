@@ -2,3 +2,9 @@
 .vscode/
 ### Documentation Backups ###
 docs/LEGACY_*.md.bak
+
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp

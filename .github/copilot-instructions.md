@@ -31,7 +31,6 @@
 - **All services** must expose OpenTelemetry metrics and traces (see `bv-observability/README.md`).
 - **CI/CD pipelines** enforce quality gates: tests, security scans, contract validation (see `.github/workflows/`).
 
-## Integration Points & Patterns
 ## Key References
 - `BitVelocity-Docs/docs/00-OVERVIEW/README.md` — platform overview
 - `bv-core-parent/pom.xml` — dependency management
@@ -45,10 +44,6 @@
 - `BitVelocity-Docs/docs/adr/ADR-015-load-testing-strategy.md` — load testing ADR
 - `BitVelocity-Docs/docs/adr/ADR-016-chaos-engineering-framework.md` — chaos engineering ADR
 - `BitVelocity-Docs/docs/adr/ADR-017-cicd-pipeline-architecture.md` — CI/CD ADR
-- `bv-core-parent/pom.xml` — dependency management
-- `bv-infra-service/README.md` — infra build/test/debug
-- `scripts/README.md` — scripting conventions
-- `BitVelocity-Docs/docs/event-contracts/README.md` — event contract conventions
 
 
 bv-core-platform-bom (controls all versions) -> bv-core-parent (controls plugins etc.) -> bv-core-parent (this goes into every domain)
