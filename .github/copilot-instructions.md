@@ -5,7 +5,7 @@
 - Major domains: eCommerce, Chat, IoT, Social Pulse, Security. Each domain is a separate folder (e.g., `bv-eCommerce-core`, `bv-chat-stream`, etc.) with its own services and README.
 - Core shared libraries are in `bv-core-common` (auth, entities, events, logging, security). Use only published shared libs for cross-module dependencies.
 - Infrastructure-as-code and cloud automation are in `bv-infra-service` (Pulumi, Gradle, cloud secrets, policy-as-code).
-- Documentation and architecture guides are in `BitVelocity-Docs` (see `docs/00-OVERVIEW/README.md`).
+- **Documentation** is in `BitVelocity-Docs` (MkDocs site). For documentation-specific standards, maintenance, and update procedures, see `BitVelocity-Docs/.github/copilot-instructions.md`.
 - **Performance testing** is in `bv-performance-testing` (Gatling, k6, performance baselines).
 - **Chaos engineering** experiments are in `bv-chaos-experiments` (Chaos Mesh, game day runbooks).
 - **Observability** configuration is in `bv-observability` (OpenTelemetry, Prometheus, Grafana, Jaeger).
@@ -33,6 +33,7 @@
 
 ## Key References
 - `BitVelocity-Docs/docs/00-OVERVIEW/README.md` — platform overview
+- `BitVelocity-Docs/.github/copilot-instructions.md` — **documentation maintenance standards and procedures**
 - `bv-core-parent/pom.xml` — dependency management
 - `bv-infra-service/README.md` — infra build/test/debug
 - `scripts/README.md` — scripting conventions
@@ -44,6 +45,19 @@
 - `BitVelocity-Docs/docs/adr/ADR-015-load-testing-strategy.md` — load testing ADR
 - `BitVelocity-Docs/docs/adr/ADR-016-chaos-engineering-framework.md` — chaos engineering ADR
 - `BitVelocity-Docs/docs/adr/ADR-017-cicd-pipeline-architecture.md` — CI/CD ADR
+
+## Documentation Updates
+When adding or modifying modules:
+1. Update module READMEs with current architecture and dependencies
+2. Trigger documentation sync: See `BitVelocity-Docs/.github/copilot-instructions.md` for procedures to update projects-and-modules.md, phase guides, and cross-references
+3. Update event contracts if new domain events are introduced
+4. Update ADRs if architectural decisions change
+
+When documentation updates are needed, reference the dedicated documentation copilot instructions which contain:
+- Module synchronization triggers and procedures
+- Navigation management for MkDocs site
+- Documentation standards (file naming, markdown style, cross-references)
+- Quality checks before committing documentation changes
 
 
 bv-core-platform-bom (controls all versions) -> bv-core-parent (controls plugins etc.) -> bv-core-parent (this goes into every domain)

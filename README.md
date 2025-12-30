@@ -4,6 +4,9 @@ Source code : [https://github.com/nitinkc/BitVelocity](https://github.com/nitink
 
 Site: [https://nitinkc.github.io/BitVelocity-Docs/](https://nitinkc.github.io/BitVelocity-Docs/)
 
+Project URL : [https://github.com/users/nitinkc/projects/8](https://github.com/users/nitinkc/projects/8)
+
+
 ## Build All Modules
 
 ```
