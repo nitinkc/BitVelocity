@@ -45,3 +45,6 @@
 [submodule "bv-auth-service"]
 	path = bv-auth-service
 	url = https://github.com/nitinkc/bv-auth-service.git
+[submodule "bv-performance-testing"]
+	path = bv-performance-testing
+	url = https://github.com/nitinkc/bv-performance-testing.git
