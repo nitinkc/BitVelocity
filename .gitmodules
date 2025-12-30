@@ -55,5 +55,5 @@
     path = bv-observability
     url = https://github.com/nitinkc/bv-observability.git
 [submodule "bv-security-testing"]
-    path = bv-security-testing
-    url = https://github.com/nitinkc/bv-security-testing.git
+	path = bv-security-testing
+	url = https://github.com/nitinkc/bv-security-testing.git
