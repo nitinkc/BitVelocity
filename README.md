@@ -9,9 +9,12 @@ Project URL : [https://github.com/users/nitinkc/projects/8](https://github.com/u
 
 ## Build All Modules
 
-```
-cd bv-core-parent
-mvn clean install
+```sh
+# Build in this exact order:
+cd bv-core-platform-bom && mvn clean install -DskipTests && cd ..
+cd bv-core-parent && mvn clean install -DskipTests && cd ..
+cd bv-core-common && mvn clean install -DskipTests && cd ..
+cd bv-auth-service && mvn clean install -DskipTests && cd ..
 ```
 
 bv-core-platform-bom (controls all versions) -> bv-core-parent (controls plugins etc.) -> bv-core-parent (this goes into every domain)
@@ -38,12 +41,3 @@ mvn spring-boot:run
 kubectl apply -f k8s/postgres.yaml
 kubectl apply -f k8s/auth-service.yaml
 ```
-
-## Documentation
-- Architecture: `BitVelocity-Docs/docs/00-OVERVIEW/README.md`
-- Security: `BitVelocity-Docs/adr/ADR-005-security-layering.md`
-
----
-
-For more details, see `QUICK-START.md`.
-
