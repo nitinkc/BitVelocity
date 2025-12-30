@@ -1,0 +1,74 @@
+name: Contract Tests
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main ]
+
+jobs:
+  pact-tests:
+    name: Pact Contract Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        consumer:
+          - order-service
+          - inventory-service
+          - product-service
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Run Consumer Tests
+        run: |
+          cd bv-eCommerce-core/${{ matrix.consumer }}
+          ../../bv-core-parent/mvnw test -Dtest=*ContractTest
+      
+      - name: Publish Pacts
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd bv-eCommerce-core/${{ matrix.consumer }}
+          ../../bv-core-parent/mvnw pact:publish
+        env:
+          PACT_BROKER_URL: ${{ secrets.PACT_BROKER_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+
+  grpc-contract-tests:
+    name: gRPC Contract Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Generate gRPC Code
+        run: |
+          cd bv-eCommerce-core/inventory-service
+          ../../bv-core-parent/mvnw protobuf:compile
+      
+      - name: Run gRPC Contract Tests
+        run: |
+          cd bv-eCommerce-core/inventory-service
+          ../../bv-core-parent/mvnw test -Dtest=*GrpcContractTest
+      
+      - name: Validate Proto Breaking Changes
+        uses: bufbuild/buf-setup-action@v1
+      
+      - run: |
+          buf breaking --against '.git#branch=main'

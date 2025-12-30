@@ -6,11 +6,17 @@
 - Core shared libraries are in `bv-core-common` (auth, entities, events, logging, security). Use only published shared libs for cross-module dependencies.
 - Infrastructure-as-code and cloud automation are in `bv-infra-service` (Pulumi, Gradle, cloud secrets, policy-as-code).
 - Documentation and architecture guides are in `BitVelocity-Docs` (see `docs/00-OVERVIEW/README.md`).
+- **Performance testing** is in `bv-performance-testing` (Gatling, k6, performance baselines).
+- **Chaos engineering** experiments are in `bv-chaos-experiments` (Chaos Mesh, game day runbooks).
+- **Observability** configuration is in `bv-observability` (OpenTelemetry, Prometheus, Grafana, Jaeger).
+- **Security testing** is in `bv-security-testing` (OWASP ZAP, dependency scanning, penetration test scenarios).
 
 ## Developer Workflows
-- **Java Build:** Use Maven (`mvnw`, `pom.xml`) for core modules, Gradle (`build.gradle`) for infra. Run `./mvnw clean install` or `./gradlew build` from module root.
+- **Java Build:** Use Maven (`mvnw`, `pom.xml`) for core modules, Gradle (`build.gradle`) for infra and performance tests. Run `./mvnw clean install` or `./gradlew build` from module root.
 - **Dependency Management:** Use BOM in `bv-core-parent/pom.xml`. Child modules declare dependencies without versions; BOM manages versions.
 - **Testing:** JUnit, Testcontainers, and Cucumber are used. Destroy ephemeral cloud stacks after tests (`pulumi destroy`).
+- **Performance Testing:** Use Gatling (Java) for complex load tests, k6 for CI smoke tests. See `bv-performance-testing/README.md`.
+- **Chaos Engineering:** Use Chaos Mesh for experiments. Always document experiments in `bv-chaos-experiments/`. See safety guidelines before running.
 - **Debugging:** If classpath issues, run `./gradlew clean build` or `./mvnw clean install`.
 - **Scripts:** Scripts are in `scripts/` and follow kebab-case naming. See `scripts/README.md` for conventions.
 
@@ -20,14 +26,25 @@
 - No PII leakage in event contracts; lint checks required fields and naming.
 - Only use published shared libraries for cross-module dependencies.
 - Secrets integration via Vault or cloud secret manager; policy-as-code via OPA or CrossGuard.
+- **Performance baselines** must be defined in `bv-performance-testing/performance-baselines/sli-targets.yaml`.
+- **Chaos experiments** must include hypothesis, blast radius, and validation criteria.
+- **All services** must expose OpenTelemetry metrics and traces (see `bv-observability/README.md`).
+- **CI/CD pipelines** enforce quality gates: tests, security scans, contract validation (see `.github/workflows/`).
 
 ## Integration Points & Patterns
-- Messaging: Kafka, NATS, RabbitMQ (see `BitVelocity-Docs/docs/00-OVERVIEW/README.md`).
-- Data pipelines: OLTP to OLAP, data governance, analytics (see docs and domain folders).
-- Microservices patterns: See `BitVelocity-Docs/docs/03-DEVELOPMENT/microservices-patterns.md`.
-
 ## Key References
 - `BitVelocity-Docs/docs/00-OVERVIEW/README.md` — platform overview
+- `bv-core-parent/pom.xml` — dependency management
+- `bv-infra-service/README.md` — infra build/test/debug
+- `scripts/README.md` — scripting conventions
+- `BitVelocity-Docs/docs/event-contracts/README.md` — event contract conventions
+- `bv-performance-testing/README.md` — performance testing guide
+- `bv-chaos-experiments/README.md` — chaos engineering guide
+- `bv-observability/README.md` — observability standards
+- `bv-security-testing/README.md` — security testing practices
+- `BitVelocity-Docs/docs/adr/ADR-015-load-testing-strategy.md` — load testing ADR
+- `BitVelocity-Docs/docs/adr/ADR-016-chaos-engineering-framework.md` — chaos engineering ADR
+- `BitVelocity-Docs/docs/adr/ADR-017-cicd-pipeline-architecture.md` — CI/CD ADR
 - `bv-core-parent/pom.xml` — dependency management
 - `bv-infra-service/README.md` — infra build/test/debug
 - `scripts/README.md` — scripting conventions

@@ -1,0 +1,92 @@
+name: Performance Smoke Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Nightly at 2 AM
+
+jobs:
+  performance-smoke:
+    name: k6 Performance Smoke Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Compose
+        run: |
+          docker-compose -f docker-compose.infra.yml up -d
+          sleep 30  # Wait for services to be ready
+      
+      - name: Build and Start Services
+        run: |
+          # Build services
+          cd bv-core-parent
+          ./mvnw clean package -DskipTests
+          
+          # Start order service
+          cd ../bv-eCommerce-core/order-service
+          java -jar target/*.jar &
+          
+          # Wait for service to be ready
+          timeout 60 bash -c 'until curl -f http://localhost:8080/actuator/health; do sleep 2; done'
+      
+      - name: Install k6
+        run: |
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" \
+            | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+      
+      - name: Run k6 Smoke Test
+        run: |
+          cd bv-performance-testing/k6-scripts
+          k6 run --out json=results.json api-smoke-test.js
+      
+      - name: Process Results
+        run: |
+          cd bv-performance-testing/k6-scripts
+          # Check if performance degraded
+          k6 inspect results.json
+      
+      - name: Upload Performance Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-results
+          path: bv-performance-testing/k6-scripts/results.json
+      
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('bv-performance-testing/k6-scripts/reports/summary.json'));
+            
+            const comment = `## 🚀 Performance Test Results
+            
+            | Metric | Value |
+            |--------|-------|
+            | Requests | ${results.metrics.http_reqs.values.count} |
+            | Duration | ${results.metrics.http_req_duration.values.avg.toFixed(2)}ms (avg) |
+            | p95 Latency | ${results.metrics.http_req_duration.values['p(95)'].toFixed(2)}ms |
+            | Error Rate | ${(results.metrics.http_req_failed.values.rate * 100).toFixed(2)}% |
+            
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          docker-compose -f docker-compose.infra.yml down
